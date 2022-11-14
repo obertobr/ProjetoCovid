@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react'
 import './App.css';
+import axios from 'axios';
+
+const token = "b8075c2278f4fbd8c647965245d83431fcafc758"
 
 function App() {
+  useEffect(() =>{
+    axios.get(`https://api.brasil.io/v1/dataset/covid19/caso/data/?state=SP&is_last=True&place_type=state`, {
+      headers: {
+        Authorization: 'Token ' + token
+      }
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
     </div>
   );
 }
