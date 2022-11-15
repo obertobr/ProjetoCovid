@@ -1,9 +1,21 @@
 import "../styles/Home.css"
 import React, { useState } from "react";
+import axios from "axios";
+
 
 export function Home () {
 
-   
+    
+
+        let pegarDadosPorEstado = async (uf,date) => {
+
+            let data = await axios.get(`http://localhost:4000/DadosCovid/${uf}/${date}`)
+
+            console.log(data)
+            console.log(data.data)
+            
+            return data
+        }
 
         const [dadosCovid, setDadosCovid] = useState({
             populacao : "100.000.000",
@@ -45,7 +57,7 @@ export function Home () {
                 ]
             )
 
-        let adicionarDadosEstado = (posicao) => {
+        let adicionarDadosEstado = async (posicao) => {
 
             let copiaEstados = [...estados];
 
@@ -58,6 +70,18 @@ export function Home () {
             copiaEstados[posicao].cor = "#FC5953"
             
             setEstados(copiaEstados)
+
+            let dados = await pegarDadosPorEstado(estados[posicao].estadoSigla,"2021-12-30")
+
+            setDadosCovid(
+                {
+                    populacao : dados.data[9],
+                    numeroCasos: dados.data[5],
+                    obitos: dados.data[6],
+                    taxaObitos: Math.round((dados.data[12] * 1000)) / 10 + "%",
+                    nomeEstado: estados[posicao].estado
+                }
+            )
         }
 
 
