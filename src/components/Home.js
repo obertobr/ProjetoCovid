@@ -1,21 +1,7 @@
 import "../styles/Home.css"
 import React, { useState } from "react";
-import axios from "axios";
 
-
-export function Home () {
-
-    
-
-        let pegarDadosPorEstado = async (uf,date) => {
-
-            let data = await axios.get(`http://localhost:4000/DadosCovid/${uf}/${date}`)
-
-            console.log(data)
-            console.log(data.data)
-            
-            return data
-        }
+export function Home (props) {
 
         const [dadosCovid, setDadosCovid] = useState({
             populacao : "100.000.000",
@@ -67,21 +53,53 @@ export function Home () {
                 }
             })
 
+            
             copiaEstados[posicao].cor = "#FC5953"
             
             setEstados(copiaEstados)
 
-            let dados = await pegarDadosPorEstado(estados[posicao].estadoSigla,"2021-12-30")
+            let date = estados[posicao].estadoSigla === "TO" ? "2021-12-29" : "2021-12-30"
+
+            let dados = await props.pegarDadosPorEstado(estados[posicao].estadoSigla,date)
+
+            console.log(dados.data[12])
+            let taxaObitos = (dados.data[12] * 100).toFixed(3)
 
             setDadosCovid(
                 {
-                    populacao : dados.data[9],
-                    numeroCasos: dados.data[5],
-                    obitos: dados.data[6],
-                    taxaObitos: Math.round((dados.data[12] * 1000)) / 10 + "%",
+                    populacao : formatarNumero(dados.data[9]),
+                    numeroCasos: formatarNumero(dados.data[5]),
+                    obitos: formatarNumero(dados.data[6]),
+                    taxaObitos: taxaObitos + "%",
                     nomeEstado: estados[posicao].estado
                 }
             )
+        }
+
+        let formatarNumero = (numero) => {
+
+            
+            let tamanho = numero.length 
+            let resto = tamanho % 3 
+            let separacoes = (tamanho - resto) / 3 
+            let numeroFormatado = ""
+
+            numeroFormatado += numero.substring(0, resto)
+
+            for (let index = 0; index < separacoes; index++) {
+                
+               let aux =  index * 3 + resto
+
+               if (resto === 0 && index === 0 ) {
+                numeroFormatado += numero.substring(aux,aux + 3)
+               } else {
+                numeroFormatado += "." + numero.substring(aux,aux + 3)
+               }
+   
+            }
+
+            return numeroFormatado
+
         }
 
 
@@ -433,7 +451,7 @@ export function Home () {
                     </div>
 
                     <div className="dadosLine">
-                        <p>Taxa de óbitos:</p>
+                        <p>Taxa de Mortalidade:</p>
                         <p>{dadosCovid.taxaObitos}</p>
                     </div>
                     

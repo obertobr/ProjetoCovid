@@ -6,8 +6,10 @@ import home from '../src/icons/home.svg'
 import graph from '../src/icons/graph.svg'
 import info from '../src/icons/info.svg'
 import { useState } from 'react';
+import axios from 'axios';
 
 import { Home } from './components/Home';
+import { Sobre } from './components/Sobre';
 
 function App() {
 
@@ -15,6 +17,12 @@ function App() {
   let [analiseOn, setAnaliseOn] = useState(false)
   let [sobreOn, setSobreOn] = useState(false)
   
+  let pegarDadosPorEstado = async (uf,date) => {
+
+    let data = await axios.get(`http://localhost:4000/DadosCovid/${uf}/${date}`)
+
+    return data
+}
 
   let alterarConteudoMain = (area) => {
 
@@ -53,10 +61,10 @@ function App() {
         {
           homeOn ? (
           <>
-            <Home></Home>
+            <Home pegarDadosPorEstado={(uf,date) => pegarDadosPorEstado(uf,date)}></Home>
            </>
           ) : analiseOn ? (<h2>Analise</h2>) : 
-          sobreOn ? (<h2>Sobre</h2>) : ""
+          sobreOn ? (<Sobre></Sobre>) : ""
         }
       </main>
     </>

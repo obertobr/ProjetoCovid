@@ -1,0 +1,78 @@
+#contentSobre {
+    width: 900px;
+    height: 580px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #566586;
+    padding: 2px;
+    padding-top: 0;
+    border-radius: 12px;
+    box-shadow: 6px 7px 11px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.238);
+}
+
+#contentSobre > header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 20%;
+    font-size: 30px;
+}
+
+#contentSobre > header > img {
+    width: 40px;
+    height: 40px;
+}
+
+#imageGlobo{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.18)
+}
+
+#contentText {
+    padding: 20px;
+    text-align: justify;
+    width: 100%;
+    margin: 10px 0px;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 24px;
+    text-indent: 15px;
+    line-height: 35px;
+}
+
+#contentGrupo {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+#equipe {
+   
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+#equipe > ol {
+    font-size: 22px;
+    list-style: disc;
+}
+
