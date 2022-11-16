@@ -10,6 +10,7 @@ import axios from 'axios';
 
 import { Home } from './components/Home';
 import { Sobre } from './components/Sobre';
+import { Analise } from './components/Analise';
 
 function App() {
 
@@ -63,7 +64,7 @@ function App() {
           <>
             <Home pegarDadosPorEstado={(uf,date) => pegarDadosPorEstado(uf,date)}></Home>
            </>
-          ) : analiseOn ? (<h2>Analise</h2>) : 
+          ) : analiseOn ? (<Analise pegarDadosPorEstado={(uf,date) => pegarDadosPorEstado(uf,date)}></Analise>) : 
           sobreOn ? (<Sobre></Sobre>) : ""
         }
       </main>

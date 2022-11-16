@@ -1,15 +1,11 @@
 import "../styles/Home.css"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export function Home (props) {
 
-        const [dadosCovid, setDadosCovid] = useState({
-            populacao : "100.000.000",
-            numeroCasos: "100.000.000",
-            obitos: "100.000.000",
-            taxaObitos: "100%",
-            nomeEstado: "Brasil"
-        })
+        let [count,setCount] = useState(0);
+
+        const [dadosCovid, setDadosCovid] = useState(0)
         
         const [estados,setEstados] = useState(
                 [
@@ -40,40 +36,58 @@ export function Home (props) {
                     {estado: "São Paulo", estadoSigla: "SP", cor: "#13AFFE"},
                     {estado: "Sergipe", estadoSigla: "SE", cor: "#13AFFE"},
                     {estado: "Tocantins", estadoSigla: "TO", cor: "#13AFFE"},
+                    {estado: "Brasil", estadoSigla: "brasil", cor: "#13AFFE"},
                 ]
             )
 
+       
         let adicionarDadosEstado = async (posicao) => {
 
             let copiaEstados = [...estados];
 
             copiaEstados.forEach((estado) => {
-                if(estado.cor === "#FC5953") {
+                if(estado.cor !== "#13AFFE") {
                     estado.cor = "#13AFFE"
                 }
             })
 
-            
-            copiaEstados[posicao].cor = "#FC5953"
-            
-            setEstados(copiaEstados)
 
-            let date = estados[posicao].estadoSigla === "TO" ? "2021-12-29" : "2021-12-30"
+            let dados = await props.pegarDadosPorEstado(estados[posicao].estadoSigla,"none")
 
-            let dados = await props.pegarDadosPorEstado(estados[posicao].estadoSigla,date)
-
-            console.log(dados.data[12])
+           
             let taxaObitos = (dados.data[12] * 100).toFixed(3)
 
-            setDadosCovid(
-                {
-                    populacao : formatarNumero(dados.data[9]),
-                    numeroCasos: formatarNumero(dados.data[5]),
-                    obitos: formatarNumero(dados.data[6]),
-                    taxaObitos: taxaObitos + "%",
-                    nomeEstado: estados[posicao].estado
-                }
-            )
+            if(estados[posicao].estado !== "Brasil") {
+                setDadosCovid(
+                    {
+                        populacao : formatarNumero(dados.data[9]),
+                        numeroCasos: formatarNumero(dados.data[4]),
+                        obitos: formatarNumero(dados.data[5]),
+                        taxaObitos: taxaObitos + "%",
+                        nomeEstado: estados[posicao].estado
+                    }
+                )
+            } else {
+                taxaObitos = (dados.data[3] * 100).toFixed(3)
+                
+                setDadosCovid(
+                    {
+                        populacao : formatarNumero(dados.data[0] + ""),
+                        numeroCasos: formatarNumero(dados.data[1] + ""),
+                        obitos: formatarNumero(dados.data[2] + ""),
+                        taxaObitos: taxaObitos + "%",
+                        nomeEstado: estados[posicao].estado
+                    }
+                )
+            }
+            
+
+            let taxaCor = dados.data[12] * 100 / 0.035
+            taxaCor = taxaCor > 100 ? 100 : taxaCor
+            
+            copiaEstados[posicao].cor = `rgb(${255 - taxaCor},50,50,100)`
+            
+            setEstados(copiaEstados)
         }
 
         let formatarNumero = (numero) => {
@@ -97,15 +111,22 @@ export function Home (props) {
                }
    
             }
-
+           
             return numeroFormatado
 
         }
 
+        useEffect(() => {
+            if(count === 0) {
+                adicionarDadosEstado(27)
+               setCount(1)
+               
+            } 
+        })
 
     return (
         <>
-        
+            
             <header id="titleHome">
                 <h1>Análise do Covid no Brasil</h1>
             </header>
@@ -433,28 +454,34 @@ export function Home (props) {
                 </div>
 
                 <div id="contentDados">
-                    <h2 id="titleEstadoHome">{dadosCovid.nomeEstado}</h2>
+                    {
+                        
+                      dadosCovid !== 0 ? (
+                        <>
+                            <h2 id="titleEstadoHome">{dadosCovid.nomeEstado}</h2>
 
-                    <div className="dadosLine">
-                        <p>População:</p>
-                        <p>{dadosCovid.populacao}</p>
-                    </div>
+                            <div className="dadosLine">
+                                <p>População:</p>
+                                <p>{dadosCovid.populacao}</p>
+                            </div>
 
-                    <div className="dadosLine">
-                        <p>Número de casos:</p>
-                        <p>{dadosCovid.numeroCasos}</p>
-                    </div>
+                            <div className="dadosLine">
+                                <p>Número de casos:</p>
+                                <p>{dadosCovid.numeroCasos}</p>
+                            </div>
 
-                    <div className="dadosLine">
-                        <p>Óbitos:</p>
-                        <p>{dadosCovid.obitos}</p>
-                    </div>
+                            <div className="dadosLine">
+                                <p>Óbitos:</p>
+                                <p>{dadosCovid.obitos}</p>
+                            </div>
 
-                    <div className="dadosLine">
-                        <p>Taxa de Mortalidade:</p>
-                        <p>{dadosCovid.taxaObitos}</p>
-                    </div>
-                    
+                            <div className="dadosLine">
+                                <p>Taxa de Óbitos:</p>
+                                <p>{dadosCovid.taxaObitos}</p>
+                            </div>
+                        </>
+                        ) : (<h2>Carregando dados...</h2>)
+                    }
                 </div>
             </div>
         </>
