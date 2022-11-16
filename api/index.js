@@ -41,17 +41,22 @@ app.get('/DadosCovid/Brasil/:data', async function (req, res) {
     let populacao = 0;
     let casos = 0;
     let obitos = 0;
+    let erro = false;
     for(estado of estados){
         if(req.params.data == "none"){
             information = result.find(e => e[1] == estado)
         } else {
-            information = result.find(e => e[1] == estado && e[0] == data)
+            information = result.find(e => e[1] == estado && e[0].indexOf(data) !== -1)
+            if(information === undefined){
+                erro = true;
+                break;
+            }
         }
         populacao+= parseInt(information[9])
         casos+= parseInt(information[4])
         obitos+= parseInt(information[5])
     }
-    if(information === undefined){
+    if(erro){
         res.status(500).json({"error" : "data invalida"})
     } else {
         res.status(200).json([populacao, casos, obitos, obitos*100/casos/100])
@@ -64,7 +69,7 @@ app.get('/DadosCovid/:estado/:data', async function (req, res) {
     if(req.params.data == "none"){
         information = result.find(e => e[1] == req.params.estado)
     } else {
-        information = result.find(e => e[1] == req.params.estado && e[0] == data)
+        information = result.find(e => e[1] == req.params.estado && e[0].indexOf(data) !== -1)
     }
     if(information === undefined){
         res.status(500).json({"error" : "data ou estado invalido"})
