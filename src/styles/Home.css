@@ -75,7 +75,7 @@ path {
 }
 
 path:hover {
-  fill: #1098dd !important; 
+  filter: brightness(0.85);
   cursor: pointer;
 }
 
