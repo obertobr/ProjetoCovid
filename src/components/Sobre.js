@@ -26,13 +26,13 @@ export function Sobre () {
                         <ol>
                            <li>Helen Giovana De Faria Marques</li>   
                            <li>Lucas Do Prado Ribeiro</li> 
-                           <li>Rafael EduardoAzzi Lopes </li>  
+                           <li>Rafael Eduardo Azzi Lopes </li>  
                         </ol>
 
                         <ol>
-                           <li>Helen Giovana De Faria Marques </li>  
-                           <li>Lucas Do Prado Ribeiro</li> 
-                           <li>Rafael EduardoAzzi Lopes</li>  
+                           <li>Vinicius Alexandrino De Moraes</li>  
+                           <li>Heloisa Arfelli Donato</li> 
+                           <li>Matheus Garcia De Araujo</li>  
                         </ol>
                     </div>
                 </div>
