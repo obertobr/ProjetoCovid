@@ -242,7 +242,7 @@ export function Analise (props) {
 
     useEffect(() => {
         atualizarGraficoPizza()
-    },[mes])
+    },[mes, dadosGraficoAnual])
 
     return (
         <>
