@@ -113,7 +113,7 @@ export function Analise (props) {
    
     let [dadosGraficoAnual,setDadosGraficoAnual] = useState(["SP","2021"])
     
-   let [mes,setMes] = useState("Geral")
+   let [mes,setMes] = useState("1")
 
     let atualizarGrafico = async() => {
 
@@ -175,9 +175,10 @@ export function Analise (props) {
     let [graficoPizza,setGraficoPizza] = useState(false)
 
     let atualizarGraficoPizza = async () => {
-
       try {
-        let Mes = mes < 10 ? "0"+mes : mes
+        console.log(mes)
+        let Mes = parseInt(mes)-1
+        Mes = Mes < 10 ? "0"+Mes : Mes
         var dado = await props.pegarDadosPorEstado(dadosGraficoAnual[0],dadosGraficoAnual[1] + "-" + Mes)
       } catch(e){
         dado= 0
@@ -200,12 +201,8 @@ export function Analise (props) {
           casos :  0,
           obitos :  0,
       }
-      
-
       }
-       
-
-        if(mes !== "Geral") {
+        if(mes !== "1") {
             setGraficoPizza(true)
            
             setDataPizza({
@@ -232,12 +229,10 @@ export function Analise (props) {
                 ],
               })
         } else {
-            
+            console.log("teste")
             setGraficoPizza(false)
             
         }
-
-
     }
 
     useEffect(() => {
@@ -312,7 +307,6 @@ export function Analise (props) {
                             <h3>Mês</h3>
                             <select value={mes} onChange={(e) => {
                                 setMes(e.target.value)
-
                             }}>
                                 {opcoesData.map((mes,i) => {
                                     return <option key={i} value={i+1}>{mes}</option>
