@@ -1,3 +1,7 @@
+:root {
+    --escurecimento: 0.2
+}
+
 #contentHome {
     display: flex;
     align-items: center;
@@ -71,11 +75,11 @@
 }
 
 path {
+    filter: brightness(var(--brightness));
     transition: all 0.2s ease-in-out;
 }
 
 path:hover {
-  filter: brightness(0.85);
+  filter: brightness(calc(var(--brightness) - var(--escurecimento)));
   cursor: pointer;
 }
-

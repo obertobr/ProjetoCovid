@@ -41,6 +41,9 @@ app.get('/DadosCovid/Brasil/:data', async function (req, res) {
     let populacao = 0;
     let casos = 0;
     let obitos = 0;
+    let maior = 0;
+    let menor = 1;
+    let TaxaObitoPorEstado = {}
     let erro = false;
     for(estado of estados){
         if(req.params.data == "none"){
@@ -52,6 +55,9 @@ app.get('/DadosCovid/Brasil/:data', async function (req, res) {
                 break;
             }
         }
+        if(information[12] > maior){maior = parseFloat(information[12])}
+        if(information[12] < menor){menor = parseFloat(information[12])}
+        TaxaObitoPorEstado[estado] = parseFloat(information[12])
         populacao+= parseInt(information[9])
         casos+= parseInt(information[4])
         obitos+= parseInt(information[5])
@@ -59,7 +65,7 @@ app.get('/DadosCovid/Brasil/:data', async function (req, res) {
     if(erro){
         res.status(500).json({"error" : "data invalida"})
     } else {
-        res.status(200).json([populacao, casos, obitos, obitos*100/casos/100])
+        res.status(200).json([populacao, casos, obitos, obitos*100/casos/100, TaxaObitoPorEstado, {maior: maior, menor: menor}])
     }
 });
 
