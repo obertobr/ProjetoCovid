@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+<p align=center>
+  <img src="https://user-images.githubusercontent.com/64040357/202628686-b5044b38-d1fa-4e4b-9eb6-420d35ab63fc.png" alt="banner" width="100%"> 
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto de um site que mostra dados por estado sobre o avanço do Covid-19 no Brasil
 
-## Available Scripts
+# Conteudo
 
-In the project directory, you can run:
+- 💾 [Como Baixar](#como-baixar)
+    - [NODE.JS](#nodejs)
+    - [GIT](#git)
+    - [Instalando as Bibliotecas](#instalando-as-bibliotecas)
+    - [Baixando o Dataset](#baixando-o-dataset)
+- 🖥 [Como Executar](#como-executar)
+- 🖼 [Imagens](#imagens)
+    - [Home](#home)
+    - [Graficos](#graficos)
+    - [Sobre](#sobre)
+- 🧾 [Creditos](#creditos)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Como Baixar
+Como você pode rodar o projeto no seu próprio computador.
+### NODE.JS
+Caso ainda não tenho o node instalado, você pode instalar por esse [link](https://nodejs.org/en/).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Certifique se de baixar a versão recomendada como pode ver na imagem abaixo.
 
-### `npm test`
+<img src="https://user-images.githubusercontent.com/64040357/202615002-e31040d5-be60-4c01-a495-64a475250193.png" alt="site do node.js" width="75%">
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### GIT
+Caso não tenha o git instalado, baixe por esse [link](https://git-scm.com/)
 
-### `npm run build`
+Agora clone o repositório em alguma pasta com esse comando:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`git clone https://github.com/obertobr/ProjetoCovid.git`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Depois de executar o comando você terá uma pasta com esses arquivos:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img src="https://user-images.githubusercontent.com/64040357/202615959-ae558ade-b005-497c-89d4-a1ad8000ab35.png" alt="pasta com arquivos clonados do repositório" width="500">
 
-### `npm run eject`
+### Instalando as Bibliotecas
+Para instalar as bibliotecas nos usaremos o comando `npm`. Então certifique se que está na pasta `/ProjetoCovid` pelo terminal e excuta o seguinte comando:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`npm install`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Você vera uma tela mais o menos assim das bibliotecas sendo instaladas:
+<img src="https://user-images.githubusercontent.com/64040357/202617824-37eca5a2-765a-4514-a049-0a196b43b51c.png" alt="terminal exibindo bibliotecas sendo instaladas">
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Depois de terminar a instalação, vamos instalar agora as bibliotecas da API, para isso você terá que entrar na pasta '/ProjetoCovid/api' e executar de novo:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`npm install`
 
-## Learn More
+E pronto instalamos todas terá que precisávamos.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Baixando o Dataset
+Por último vamos baixar o dataset com os casos de Covid, para isso basta entrar no site [brasil.io](https://brasil.io/dataset/covid19/files/) e baixar o `caso.csv.gz`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Depois de baixado vamos descompactar esse arquivo e criamos uma pasta chamada `src` na pasta `/ProjetoCovid/api` e colocamos o `caso.csv` dentro pasta que acabamos de criar, então ficara assim `/ProjetoCovid/api/src/caso.csv`.
 
-### Code Splitting
+# Como Executar
+Precisamos executar a api e o site, então pra isso vamos, primeiro executar a api.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Para executar api, você abrira o terminal na pasta `/ProjetoCovid/api` e executara esse comando:
+`node index.js`
 
-### Analyzing the Bundle Size
+Agora espere até que a API carregue(Isso pode levar algum tempo, pois ira carregar o dataset inteiro), quando terminado você verá isso:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<img src="https://user-images.githubusercontent.com/64040357/202620037-2750f152-f4ac-43c7-872f-f3d3390f5b9f.png" alt="terminal escrito App está escutando na porta 4000!">
 
-### Making a Progressive Web App
+Agora você pode excutar o site, pra isso você abrira **outro** terminal na pasta `/ProjetoCovid` e executara o comando:
+`npm start`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Espere um pouco que ele irá abrir o site automaticamente no seu navegador.
 
-### Advanced Configuration
+## Imagens
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Home
+Tela inicial do site mostra um mapa do Brasil onde quanto mais escuro o estado está mais óbitos por casos de covid houveram, além disso você pode clicar em cada estada para saber mais sobre ele:
 
-### Deployment
+<img src="https://user-images.githubusercontent.com/64040357/202622578-1912daa4-4aa9-483c-9d67-2db172a66120.png" alt="tela incial do site" width="100%">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Graficos
+Na tela de Gráficos, primeiro temos a comparação de casos e mortes de todos os meses do ano e estado selecionado:
 
-### `npm run build` fails to minify
+<img src="https://user-images.githubusercontent.com/64040357/202623903-7fc22e54-cd7c-4033-a1b1-1ae8144c2267.png" alt="Grafico de casos e mortes por covid" width="100%">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Mas caso selecionemos um mês, teremos um gráfico de pizza comparando a população, casos e óbitos do estado selecionado:
+
+<img src="https://user-images.githubusercontent.com/64040357/202624288-0fbadfca-77f8-4b91-8d33-8afc652f03e7.png" alt="Grafico de pizza sobre população, casos e obitos de covid" width="100%">
+
+### Sobre
+E por fim temos a tela sobre onde explicamos um pouco do projeto e listamos os participantes que ajudaram:
+
+<img src="https://user-images.githubusercontent.com/64040357/202624442-7146c2c1-bb83-40f2-abcf-20a46a49c033.png" alt="tela sobre" width="100%">
+
+# Creditos
+Por fim agradecemos a [brasil.io](http://brasil.io) pelo dataset de casos de covid, que foi de extrema importância para nosso projeto.
+
+
+:)
